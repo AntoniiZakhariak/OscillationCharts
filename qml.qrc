@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>OldSpinbox.qml</file>
+        <file>Controls.qml</file>
+        <file>Chart.qml</file>
     </qresource>
 </RCC>
