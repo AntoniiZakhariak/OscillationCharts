@@ -15,14 +15,17 @@ Window {
 
     Rectangle {
         id: propertyBox
-        width: win.width
+		anchors.right: parent.right
+		anchors.left: parent.left
+
 		height: 55
         anchors.top: parent.top
 
 		Controls {
 			id: controls
-			anchors.top: parent.top
-			anchors.centerIn: parent
+			anchors.fill: parent
+
+			//anchors.centerIn: parent
 		}
     }
 

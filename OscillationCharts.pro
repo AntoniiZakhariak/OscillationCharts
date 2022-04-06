@@ -1,9 +1,11 @@
-QT += quick widgets charts
+QT += core quick widgets charts
 
 HEADERS += \
+    appcontroller.h \
     chartparams.h
 
 SOURCES += \
+        appcontroller.cpp \
         chartparams.cpp \
         main.cpp
 

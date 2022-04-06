@@ -4,17 +4,17 @@
 #include <QObject>
 #include <QtQml/qqml.h>
 
+#include <QTimer>
+
 class ChartParams : public QObject
 {
-
-//	Q_OBJECT
+	Q_OBJECT
 	Q_PROPERTY(int startPos READ startPos WRITE setStartPos)
 	Q_PROPERTY(int naturalFreq READ naturalFreq WRITE setNaturalFreq)
-	Q_PROPERTY(int delta READ delta WRITE setDelta)
-	QML_ELEMENT
+	Q_PROPERTY(int delta READ delta WRITE setDelta NOTIFY deltaChanged)
 
 public:
-	ChartParams(QObject *parent = nullptr);
+	ChartParams(QObject* parent = nullptr);
 
 	int startPos() const;
 	void setStartPos(int);
@@ -23,10 +23,15 @@ public:
 	void setNaturalFreq(int);
 
 	int delta() const;
-	void setDelta(int);
+	void setDelta(int val);
+
+signals:
+	void deltaChanged();
 
 private:
-	int m_startPos;
+	QTimer m_timer;
+
+	int m_startPos = 32;
 	int m_natFreq;
 	int m_delta;
 };
