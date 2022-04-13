@@ -15,20 +15,22 @@ Window {
 
     Rectangle {
         id: propertyBox
+		height: 40
 		anchors.right: parent.right
 		anchors.left: parent.left
-
-		height: 55
-        anchors.top: parent.top
+		anchors.top: parent
+		anchors.rightMargin: 10
 
 		Controls {
 			id: controls
 			anchors.fill: parent
-
-			//anchors.centerIn: parent
 		}
     }
 
 	Chart {
+		anchors.right: parent.right
+		anchors.left: parent.left
+		anchors.top: propertyBox.bottom
+		anchors.bottom: parent.bottom
 	}
 }

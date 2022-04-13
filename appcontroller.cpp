@@ -4,6 +4,10 @@
 
 #include "chartparams.h"
 
+#include <QQmlEngine>
+#include <QQmlContext>
+
+
 AppController::AppController(QObject *parent)
 	: QObject{parent}
 {

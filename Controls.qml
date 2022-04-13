@@ -29,6 +29,7 @@ RowLayout {
 		Layout.fillHeight: true
 		Layout.fillWidth: true
 		text: "Natural frequency"
+		spinVal: params ? params.naturalFreq : 0
     }
 
     OldSpinbox {

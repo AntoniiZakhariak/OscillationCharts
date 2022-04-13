@@ -3,29 +3,34 @@
 
 #include <QObject>
 #include <QtQml/qqml.h>
+#include <QtCharts>
 
 #include <QTimer>
 
 class ChartParams : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(int startPos READ startPos WRITE setStartPos)
-	Q_PROPERTY(int naturalFreq READ naturalFreq WRITE setNaturalFreq)
+	Q_PROPERTY(int startPos READ startPos WRITE setStartPos NOTIFY startPosChanged)
+	Q_PROPERTY(int naturalFreq READ naturalFreq WRITE setNaturalFreq NOTIFY naturalFreqChanged)
 	Q_PROPERTY(int delta READ delta WRITE setDelta NOTIFY deltaChanged)
 
 public:
 	ChartParams(QObject* parent = nullptr);
 
 	int startPos() const;
-	void setStartPos(int);
+	void setStartPos(int val);
 
 	int naturalFreq() const;
-	void setNaturalFreq(int);
+	void setNaturalFreq(int val);
 
 	int delta() const;
 	void setDelta(int val);
 
+public slots:
+
 signals:
+	void startPosChanged();
+	void naturalFreqChanged();
 	void deltaChanged();
 
 private:
