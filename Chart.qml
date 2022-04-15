@@ -1,11 +1,17 @@
 import QtQuick 2.15
 import QtCharts 2.1
+import QtQuick.Layouts 1.0
+import QtQuick.Controls 2.15
 
 import My.Types 1.0
 
 ChartView {
-
+	anchors.right: parent.right
+	anchors.left: parent.left
+	anchors.top: propertyBox.bottom
+	anchors.bottom: parent.bottom
 	antialiasing: true
+	legend.visible: false
 
 	theme: ChartView.ChartThemeBlueIcy
 
@@ -22,29 +28,23 @@ ChartView {
 
 	LineSeries {
 		id: lineSeries
-		name: "signal 1"
 		axisX:axisX
 		axisY: axisY
 	}
 
 	Timer {
 		id: refreshTimer
-		interval: 1 / 20 * 1000 // 60 Hz
+		interval: 1 / 4 * 1000
 		running: true
 		repeat: true
-		property real l_x: 0
-		property real l_y: 0
 
 		onTriggered: {
-//			if(l_x > axisX.max){
-//				lineSeries.clear()
-//				l_x = 0
-//			} else {
-//				l_x += 0.05
-//			}
-//			l_y = 50 * Math.sin(12. * l_x) * Math.abs(Math.cos(1. * l_x))
-//			lineSeries.append(l_x, l_y)
-			dataSource.update(chartView.series(0));
+			lineSeries.count > 500 ? lineSeries.remove(0) : 0;
+			lineSeries.append(params.chartValue.x, params.chartValue.y)
+
+			axisX.min = lineSeries.at(0).x
+			axisX.max = lineSeries.at(lineSeries.count-1).x
 		}
 	}
 }
+

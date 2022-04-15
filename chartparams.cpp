@@ -8,18 +8,47 @@
 
 ChartParams::ChartParams(QObject *parent)
 : QObject(parent),
-  m_startPos(32),
-  m_natFreq(34),
-  m_delta(0)
+  m_startPos(250),
+  m_natFreq(3),
+  m_delta(0.1)
 {
-	m_timer.setInterval(1000);
-	connect(&m_timer, &QTimer::timeout,
-			[this](){
-		qDebug()<<"::::::::"<<delta();
-		this->setDelta(delta()+1);
-	});
-	m_timer.start();
+//	m_timer.setInterval(1000 / 1);
+//	connect(&m_timer, &QTimer::timeout,
+//			[this](){
+//		qDebug()<<"::::::::"<<delta();
+//		this->setDelta(delta()+0.01);
+//	});
+//	m_timer.start();
+
+	m_chartTimer = new QTimer(this);
+	m_chartTimer->setInterval((1000 / 4));
+	connect(m_chartTimer, &QTimer::timeout,
+			this, &ChartParams::aTimeout);
+	m_chartTimer->start();
 }
+
+void ChartParams::aTimeout()
+{
+	float a1,a2, w, w0, x0, d;
+
+	x0 = startPos();
+	w = naturalFreq();
+	d = delta();
+	w0 = sqrt(w * w - d * d);
+	a1 = -1. * ( d * x0) / sqrt(w0 * w0 - d * d);
+	a2 = x0;
+
+
+	m_chartValue.setX(m_chartValue.x()+0.1);
+	m_chartValue.setY(a1 * exp(-d * m_chartValue.x()) * sin(sqrt(w0 * w0 - d * d) * m_chartValue.x())
+				  +  a2 * exp(-d * m_chartValue.x()) * cos(sqrt(w0 * w0 - d * d) * m_chartValue.x()));
+	emit chartValueChanged();
+}
+
+//void ChartParams::resetChart(){
+//	m_chartValue.setX(0);
+//}
+
 
 int ChartParams::startPos() const
 {
@@ -41,15 +70,23 @@ void ChartParams::setNaturalFreq(int val)
 	m_natFreq = val;
 }
 
-int ChartParams::delta() const
+double ChartParams::delta() const
 {
 	return m_delta;
 }
 
-void ChartParams::setDelta(int val)
+void ChartParams::setDelta(double val)
 {
 	if(m_delta == val)
 		return;
 	m_delta = val;
 	emit deltaChanged();
+}
+
+QPointF ChartParams::chartValue() const{
+		return m_chartValue;
+	};
+
+void ChartParams::setChartValue(QPointF val){
+	m_chartValue = val;
 }

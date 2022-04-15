@@ -4,8 +4,15 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
 import QtCharts 2.3
 
+import My.Types 1.0
+
 Window {
-    id: win
+
+	property AppController controller: _appController
+	property ChartParams params: controller.chartParams
+
+
+	id: win
     width: 640
     height: 480
     minimumWidth: 640
@@ -18,14 +25,15 @@ Window {
 		height: 40
 		anchors.right: parent.right
 		anchors.left: parent.left
-		anchors.top: parent
+		anchors.top: parent.top
 		anchors.rightMargin: 10
 
 		Controls {
 			id: controls
 			anchors.fill: parent
+
 		}
-    }
+	}
 
 	Chart {
 		anchors.right: parent.right
