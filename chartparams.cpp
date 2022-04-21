@@ -21,7 +21,7 @@ ChartParams::ChartParams(QObject *parent)
 //	m_timer.start();
 
 	m_chartTimer = new QTimer(this);
-	m_chartTimer->setInterval((1000 / 4));
+	m_chartTimer->setInterval((1000 /60));
 	connect(m_chartTimer, &QTimer::timeout,
 			this, &ChartParams::aTimeout);
 	m_chartTimer->start();
@@ -45,38 +45,33 @@ void ChartParams::aTimeout()
 	emit chartValueChanged();
 }
 
-//void ChartParams::resetChart(){
-//	m_chartValue.setX(0);
-//}
-
-
-int ChartParams::startPos() const
-{
+int ChartParams::startPos() const{
 	return m_startPos;
 }
 
-void ChartParams::setStartPos(int val)
-{
+void ChartParams::setStartPos(int val){
+	if(m_startPos == val)
+		return;
 	m_startPos = val;
+	emit startPosChanged();
 }
 
-int ChartParams::naturalFreq() const
-{
+int ChartParams::naturalFreq() const{
 	return m_natFreq;
 }
 
-void ChartParams::setNaturalFreq(int val)
-{
+void ChartParams::setNaturalFreq(int val){
+	if(m_natFreq == val)
+		return;
 	m_natFreq = val;
+	emit naturalFreqChanged();
 }
 
-double ChartParams::delta() const
-{
+double ChartParams::delta() const{
 	return m_delta;
 }
 
-void ChartParams::setDelta(double val)
-{
+void ChartParams::setDelta(double val){
 	if(m_delta == val)
 		return;
 	m_delta = val;

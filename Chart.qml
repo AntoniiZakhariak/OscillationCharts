@@ -6,12 +6,33 @@ import QtQuick.Controls 2.15
 import My.Types 1.0
 
 ChartView {
-	anchors.right: parent.right
-	anchors.left: parent.left
-	anchors.top: propertyBox.bottom
-	anchors.bottom: parent.bottom
+
 	antialiasing: true
 	legend.visible: false
+
+	property double deltaValue: params.delta
+	property int naturalFreqValue: params.naturalFreq
+	property int startPosValue: params.startPos
+	onDeltaValueChanged: reset()
+	onNaturalFreqValueChanged: reset()
+	onStartPosValueChanged: reset()
+
+	function reset(){
+		lineSeries.clear()
+		params.chartValue.x = 0
+	}
+
+	property point lastChartPoint: _appController.chartParams.chartValue
+	onLastChartPointChanged: {
+		lineSeries.count > 500 ? lineSeries.remove(0) : 0;
+		lineSeries.append(lastChartPoint.x, lastChartPoint.y)
+
+		axisX.min = lineSeries.at(0).x
+		axisX.max = lineSeries.at(lineSeries.count-1).x
+
+//		axisY.min = lineSeries.at(0).y
+//		axisY.max = lineSeries.at(lineSeries.count-1).y
+	}
 
 	theme: ChartView.ChartThemeBlueIcy
 
@@ -30,21 +51,6 @@ ChartView {
 		id: lineSeries
 		axisX:axisX
 		axisY: axisY
-	}
-
-	Timer {
-		id: refreshTimer
-		interval: 1 / 4 * 1000
-		running: true
-		repeat: true
-
-		onTriggered: {
-			lineSeries.count > 500 ? lineSeries.remove(0) : 0;
-			lineSeries.append(params.chartValue.x, params.chartValue.y)
-
-			axisX.min = lineSeries.at(0).x
-			axisX.max = lineSeries.at(lineSeries.count-1).x
-		}
 	}
 }
 

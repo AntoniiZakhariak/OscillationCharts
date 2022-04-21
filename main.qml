@@ -7,18 +7,16 @@ import QtCharts 2.3
 import My.Types 1.0
 
 Window {
+	id: win
+	width: 640
+	height: 480
+	minimumWidth: 640
+	minimumHeight: 480
+	title: qsTr("OscillationCharts")
+	visible: true
 
 	property AppController controller: _appController
 	property ChartParams params: controller.chartParams
-
-
-	id: win
-    width: 640
-    height: 480
-    minimumWidth: 640
-    minimumHeight: 480
-    visible: true
-    title: qsTr("OscillationCharts")
 
     Rectangle {
         id: propertyBox

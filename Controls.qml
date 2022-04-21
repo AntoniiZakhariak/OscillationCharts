@@ -18,6 +18,7 @@ RowLayout {
 		onSpinValChanged: {
 			if(!params) return
 			params.startPos = spinVal
+
 		}
     }
 
@@ -47,16 +48,4 @@ RowLayout {
 			params.delta = spinVal
 		}
     }
-
-//	Button {
-//	id: resetX
-//	text: "Reset"
-//	onClicked: {
-//		if(!params) return
-//		params.chartValue.x = 0
-//		console.log("::::: pos", params.chartValue.x)
-
-//	}
-//}
-
 }

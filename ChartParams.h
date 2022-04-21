@@ -32,7 +32,7 @@ public:
 	QPointF chartValue() const;
 	void setChartValue(QPointF val);
 
-//	void resetChart();
+	void resetChart();
 
 public slots:
 
