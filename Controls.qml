@@ -9,7 +9,7 @@ RowLayout {
     spacing: 6
 
     OldSpinbox {
-		id: posSpinbox //og
+        id: posSpinbox
 		step: 1
 		Layout.fillHeight: true
 		Layout.fillWidth: true
