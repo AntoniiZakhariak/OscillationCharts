@@ -20,7 +20,7 @@ AppController::AppController(QObject *parent)
 }
 
 void AppController::setupBkend()
-{//
+{
 	qmlRegisterType<ChartParams>("My.Types", 1, 0, "ChartParams");
 	qmlRegisterType<AppController>("My.Types", 1, 0, "AppController");
 }
